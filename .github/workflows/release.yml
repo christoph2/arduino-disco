@@ -1,9 +1,13 @@
 name: Publish to PyPI
 
+#on:
+#  push:
+#    tags:
+#      - 'v*'
+
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [master, develop]
 
 jobs:
   build-n-publish:
