@@ -83,8 +83,6 @@ def load_all_board_definitions() -> List[BoardDefinition]:
         boards_txt = hw_dir / "boards.txt"
         if not boards_txt.exists():
             continue
-
-        # Pfad-Teile extrahieren für package/arch
         # <data_dir>/packages/<vendor>/hardware/<arch>/<version>/
         parts = hw_dir.parts
         if len(parts) < 4:
@@ -95,26 +93,3 @@ def load_all_board_definitions() -> List[BoardDefinition]:
 
         all_boards.extend(parse_boards_txt(boards_txt, package, arch))
     return all_boards
-
-"""
-from typing import List
-from pathlib import Path
-from .paths import find_hardware_dirs
-
-def load_all_board_definitions() -> List[BoardDefinition]:
-    boards: List[BoardDefinition] = []
-    for hw_dir in find_hardware_dirs():
-        # hw_dir: .../<package>/hardware/<arch>/<version>/
-        parts = hw_dir.parts
-        # Wir suchen rückwärts nach "packages/<vendor>/hardware/<arch>/<version>"
-        try:
-            idx = parts.index("packages")
-            package = parts[idx + 1]
-            arch = parts[idx + 3]
-        except (ValueError, IndexError):
-            continue
-
-        boards_txt = Path(hw_dir) / "boards.txt"
-        boards.extend(parse_boards_txt(boards_txt, package, arch))
-    return boards
-"""

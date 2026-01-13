@@ -87,7 +87,12 @@ class BoardDatabase:
             reason=reason
         )
 
-def discover_boards() -> List[DiscoveryResult]:
+def discover_boards(include_all_ports: bool = False) -> List[DiscoveryResult]:
     db = BoardDatabase.from_arduino_installation()
-    ports = enumerate_serial_ports()
-    return [db.match_port(p) for p in ports]
+    serial_ports = enumerate_serial_ports()
+    disco_ports = [db.match_port(p) for p in serial_ports]
+    disco_ports.sort(key=lambda x: x.board.name if x.board else "")
+    if include_all_ports:
+        return disco_ports
+    return [d for d in disco_ports if d.board is not None]
+

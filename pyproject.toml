@@ -8,8 +8,10 @@ version = "0.1.0"
 authors = [
   { name="Christoph Schueler", email="cou12.gems@googlemail.com" },
 ]
-description = "A tool to discover Arduino boards connected via serial ports"
+description = "A library to discover Arduino boards connected via serial ports"
 readme = "README.md"
+keywords = ["arduino", "serial", "discovery", "embedded"]
+license = { text = "MIT" }
 requires-python = ">=3.7"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -19,6 +21,9 @@ classifiers = [
 dependencies = [
     "pyserial",
 ]
+
+[project.urls]
+Homepage = "https://github.com/christoph2/arduino-disco"
 
 [project.optional-dependencies]
 dev = [
