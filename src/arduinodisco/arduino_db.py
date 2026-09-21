@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Tuple, Dict, Optional
+from typing import Dict, List, Tuple
+
 
 @dataclass
 class BoardDefinition:
@@ -11,9 +12,8 @@ class BoardDefinition:
     board_id: str
     vid_pid: List[Tuple[int, int]]
 
-def parse_boards_txt(path: Path,
-                     package: str,
-                     arch: str) -> List[BoardDefinition]:
+
+def parse_boards_txt(path: Path, package: str, arch: str) -> List[BoardDefinition]:
     # boards.txt ist ein einfaches key=value Format
     if not path.is_file():
         return []
@@ -57,7 +57,7 @@ def parse_boards_txt(path: Path,
             if vid_key not in data or pid_key not in data:
                 break
             try:
-                vid = int(data[vid_key], 0)   # 0x2341 -> int
+                vid = int(data[vid_key], 0)  # 0x2341 -> int
                 pid = int(data[pid_key], 0)
                 vid_pid_pairs.append((vid, pid))
             except ValueError:
@@ -65,19 +65,23 @@ def parse_boards_txt(path: Path,
             index += 1
 
         fqbn = f"{package}:{arch}:{board_id}"
-        boards.append(BoardDefinition(
-            fqbn=fqbn,
-            name=name,
-            package=package,
-            architecture=arch,
-            board_id=board_id,
-            vid_pid=vid_pid_pairs
-        ))
+        boards.append(
+            BoardDefinition(
+                fqbn=fqbn,
+                name=name,
+                package=package,
+                architecture=arch,
+                board_id=board_id,
+                vid_pid=vid_pid_pairs,
+            )
+        )
 
     return boards
 
+
 def load_all_board_definitions() -> List[BoardDefinition]:
     from .paths import find_hardware_dirs
+
     all_boards = []
     for hw_dir in find_hardware_dirs():
         boards_txt = hw_dir / "boards.txt"
@@ -87,7 +91,7 @@ def load_all_board_definitions() -> List[BoardDefinition]:
         parts = hw_dir.parts
         if len(parts) < 4:
             continue
-        
+
         arch = parts[-2]
         package = parts[-4]
 

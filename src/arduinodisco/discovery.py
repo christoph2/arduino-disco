@@ -1,8 +1,9 @@
 from dataclasses import dataclass
-from typing import Optional, List, Dict, Tuple
+from typing import Dict, List, Optional, Tuple
 
-from .ports import SerialPortInfo, enumerate_serial_ports
 from .arduino_db import BoardDefinition, load_all_board_definitions
+from .ports import SerialPortInfo, enumerate_serial_ports
+
 
 @dataclass
 class DiscoveryResult:
@@ -45,6 +46,7 @@ def score_candidate(port: SerialPortInfo, board: BoardDefinition) -> float:
                 score += 0.05
     return score
 
+
 class BoardDatabase:
     def __init__(self, boards: List[BoardDefinition]):
         self.boards = boards
@@ -56,6 +58,7 @@ class BoardDatabase:
     @classmethod
     def from_arduino_installation(cls) -> "BoardDatabase":
         return cls(load_all_board_definitions())
+
     def match_port(self, port: SerialPortInfo) -> DiscoveryResult:
         candidates = []
 
@@ -66,10 +69,7 @@ class BoardDatabase:
 
         if not candidates:
             return DiscoveryResult(
-                port=port,
-                board=None,
-                confidence=0.0,
-                reason="No matching board found"
+                port=port, board=None, confidence=0.0, reason="No matching board found"
             )
 
         # Bestes Ergebnis auswählen
@@ -81,11 +81,9 @@ class BoardDatabase:
             reason = "VID/PID matched boards.txt"
 
         return DiscoveryResult(
-            port=port,
-            board=best_board,
-            confidence=min(best_score, 1.0),
-            reason=reason
+            port=port, board=best_board, confidence=min(best_score, 1.0), reason=reason
         )
+
 
 def discover_boards(include_all_ports: bool = False) -> List[DiscoveryResult]:
     db = BoardDatabase.from_arduino_installation()
@@ -95,4 +93,3 @@ def discover_boards(include_all_ports: bool = False) -> List[DiscoveryResult]:
     if include_all_ports:
         return disco_ports
     return [d for d in disco_ports if d.board is not None]
-
