@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from typing import List
 
+
 def default_arduino_data_dirs() -> List[Path]:
     dirs = []
 
@@ -21,6 +22,7 @@ def default_arduino_data_dirs() -> List[Path]:
         dirs.insert(0, Path(env_dir))
 
     return [d for d in dirs if d.exists()]
+
 
 def find_hardware_dirs() -> List[Path]:
     hw_dirs = []
