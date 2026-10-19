@@ -36,21 +36,21 @@ arduino-disco --all
 
 Example output for `--all`:
 ```text
-Port         Board                          FQBN                           Core      
-COM6         Unknown                        -                              -         
-COM11        Unknown                        -                              -         
-COM5         Unknown                        -                              -         
-COM7         Unknown                        -                              -         
-COM10        Arduino Uno                    arduino:avr:uno                avr       
-COM4         Arduino Uno                    arduino:avr:uno                avr       
-COM8         ESP32 Family Device            esp32:esp32:esp32_family       esp32 
+Port         Board                          FQBN                           Core
+COM6         Unknown                        -                              -
+COM11        Unknown                        -                              -
+COM5         Unknown                        -                              -
+COM7         Unknown                        -                              -
+COM10        Arduino Uno                    arduino:avr:uno                avr
+COM4         Arduino Uno                    arduino:avr:uno                avr
+COM8         ESP32 Family Device            esp32:esp32:esp32_family       esp32
 ```
 
 Example output (default):
 ```text
 Port         Board                          FQBN                           Core
-COM4         Arduino Uno                    arduino:avr:uno                avr       
-COM8         ESP32 Family Device            esp32:esp32:esp32_family       esp32     
+COM4         Arduino Uno                    arduino:avr:uno                avr
+COM8         ESP32 Family Device            esp32:esp32:esp32_family       esp32
 ```
 
 ### Python API
