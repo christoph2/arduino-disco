@@ -1,6 +1,8 @@
 from dataclasses import dataclass
-from typing import Optional, List
+from typing import List, Optional
+
 from serial.tools import list_ports
+
 
 @dataclass
 class SerialPortInfo:
@@ -12,6 +14,7 @@ class SerialPortInfo:
     manufacturer: Optional[str]
     product: Optional[str]
     serial_number: Optional[str]
+
 
 def enumerate_serial_ports() -> List[SerialPortInfo]:
     result = []
